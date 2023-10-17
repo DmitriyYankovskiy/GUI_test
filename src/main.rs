@@ -1,7 +1,7 @@
+use iced::widget::{Column, Text};
 use iced::{Element, Sandbox, Settings};
-use iced::widget::{Text, Column};
 
-fn main() -> iced::Result{
+fn main() -> iced::Result {
     Model::run(Settings::default())
 }
 
@@ -22,7 +22,7 @@ impl Sandbox for Model {
         Model { count: 0 }
     }
 
-    fn title(&self) -> String{
+    fn title(&self) -> String {
         String::from("Counter")
     }
 
