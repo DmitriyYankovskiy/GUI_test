@@ -19,7 +19,7 @@ impl Sandbox for Model {
     type Message = Msg;
 
     fn new() -> Self {
-        Model { count: 1 }
+        Model { count: 0 }
     }
 
     fn title(&self) -> String {
