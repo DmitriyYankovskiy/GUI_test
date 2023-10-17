@@ -1,5 +1,5 @@
 use iced::widget::{button, column, text, Container};
-use iced::{executor, Application, Command, Element, Settings, Theme};
+use iced::{executor, Alignment, Application, Command, Element, Settings, Theme};
 
 fn main() -> iced::Result {
     Model::run(Settings::default())
@@ -29,11 +29,14 @@ impl Application for Model {
     }
 
     fn view(&self) -> Element<'_, Self::Message> {
-        Container::new(column![
-            button("+").on_press(Self::Message::Increment),
-            text(self.counter),
-            button("-").on_press(Self::Message::Decrement),
-        ])
+        Container::new(
+            column![
+                button("+").on_press(Self::Message::Increment),
+                text(self.counter),
+                button("-").on_press(Self::Message::Decrement),
+            ]
+            .align_items(Alignment::Center),
+        )
         .center_x()
         .center_y()
         .width(iced::Length::Fill)
@@ -41,7 +44,7 @@ impl Application for Model {
         .into()
     }
 
-    fn new(_: ()) -> (Model, iced::Command<Self::Message>) {
+    fn new(_: ()) -> (Model, Command<Self::Message>) {
         (Self { counter: 0 }, Command::none())
     }
 
