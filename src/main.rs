@@ -1,40 +1,55 @@
-use iced::widget::{Column, Text};
-use iced::{Element, Sandbox, Settings};
+use iced::widget::{button, column, text, Container};
+use iced::{executor, Application, Command, Element, Settings, Theme};
 
 fn main() -> iced::Result {
     Model::run(Settings::default())
 }
 
 struct Model {
-    count: i64,
+    counter: i64,
 }
 
 #[derive(Debug, Clone, Copy)]
-enum Msg {
-    Incr,
-    Decr,
+enum Message {
+    Increment,
+    Decrement,
 }
 
-impl Sandbox for Model {
-    type Message = Msg;
-
-    fn new() -> Self {
-        Model { count: 0 }
-    }
-
+impl Application for Model {
     fn title(&self) -> String {
         String::from("Counter")
     }
 
-    fn update(&mut self, message: Self::Message) {
+    fn update(&mut self, message: Self::Message) -> Command<Self::Message> {
         match message {
-            Msg::Incr => self.count += 1,
-            Msg::Decr => self.count -= 1,
-        }
+            Self::Message::Increment => self.counter += 1,
+            Self::Message::Decrement => self.counter -= 1,
+        };
+        Command::none()
     }
 
     fn view(&self) -> Element<'_, Self::Message> {
-        let label = Text::new(self.count.to_string());
-        Column::new().push(label).into()
+        Container::new(column![
+            button("+").on_press(Self::Message::Increment),
+            text(self.counter),
+            button("-").on_press(Self::Message::Decrement),
+        ])
+        .center_x()
+        .center_y()
+        .width(iced::Length::Fill)
+        .height(iced::Length::Fill)
+        .into()
     }
+
+    fn new(_: ()) -> (Model, iced::Command<Self::Message>) {
+        (Self { counter: 0 }, Command::none())
+    }
+
+    type Message = Message;
+
+    type Executor = executor::Default;
+
+    type Flags = ();
+
+    type Theme = Theme;
 }
