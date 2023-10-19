@@ -1,5 +1,5 @@
-use iced::widget::{button, column, text, Container};
-use iced::{executor, Alignment, Application, Command, Element, Settings, Theme};
+use iced::widget::{button, column, text, Container, canvas::{Frame}};
+use iced::{executor, Alignment, Application, Command, Element, Settings, Theme, };
 
 fn main() -> iced::Result {
     Model::run(Settings::default())
